@@ -1,5 +1,6 @@
 ﻿
 #include <Siv3D.hpp> // OpenSiv3D v0.3.0
+#include <filesystem>
 
 namespace {
     // Windows.hを読み込む前に呼ばないとSetCurrentDirectoryが
@@ -34,7 +35,11 @@ void Main()
     SetDir(::s3d::Windows::FileSystem::WorkingDirectory());
 
     auto args = getArgs();
-    ManagedScript main(args[0]);
+
+    auto path = std::filesystem::path(args[0].toUTF32());
+    SetDir(path.parent_path().u32string());
+
+    ManagedScript main(path.filename().u32string());
 
     while (System::Update())
     {
