@@ -263,4 +263,6 @@ __pycache__/
 # Siv3D
 AS_DEBUG
 /Intermediate
-/*/App
+/*/App/*.exe
+*_log.html
+
