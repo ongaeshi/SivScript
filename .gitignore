@@ -264,5 +264,6 @@ __pycache__/
 AS_DEBUG
 /Intermediate
 /*/App/*.exe
+/*/App/*.zip
 *_log.html
 
