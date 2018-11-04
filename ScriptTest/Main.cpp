@@ -2,6 +2,8 @@
 #include <Siv3D.hpp> // OpenSiv3D v0.3.0
 
 namespace {
+    // Windows.hを読み込む前に呼ばないとSetCurrentDirectoryが
+    // マクロで上書きされてしまいうまく動かない。
     void SetDir(const FilePath& path)
     {
         ::s3d::Windows::FileSystem::SetCurrentDirectory(path);
