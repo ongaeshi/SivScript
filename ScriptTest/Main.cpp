@@ -1,22 +1,41 @@
 ﻿
-# include <Siv3D.hpp> // OpenSiv3D v0.3.0
+#include <Siv3D.hpp> // OpenSiv3D v0.3.0
+
+namespace {
+    void SetDir(const FilePath& path)
+    {
+        ::s3d::Windows::FileSystem::SetCurrentDirectory(path);
+    }
+}
+
+#include <Windows.h>
+
+namespace {
+    Array<String> getArgs()
+    {
+        auto argv = Array<String>();
+
+        int nArgs = 0;
+        LPWSTR* szArglist = ::CommandLineToArgvW(::GetCommandLineW(), &nArgs);
+
+        for (int i = 1; i < nArgs; i++) {
+            argv << Unicode::FromWString(szArglist[i]);
+        }
+        ::LocalFree(szArglist);
+
+        return argv;
+    }
+}
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
+    SetDir(::s3d::Windows::FileSystem::WorkingDirectory());
 
-	const Font font(60);
+    auto args = getArgs();
+    ManagedScript main(args[0]);
 
-	const Texture textureCat(Emoji(U"🐈"), TextureDesc::Mipped);
-
-	while (System::Update())
-	{
-		font(U"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Black);
-
-		font(Cursor::Pos()).draw(20, 500, ColorF(0.6));
-
-		textureCat.resized(80).draw(700, 500);
-
-		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
-	}
+    while (System::Update())
+    {
+        main.run();
+    }
 }
