@@ -261,6 +261,6 @@ __pycache__/
 *.pyc
 
 # Siv3D
-/AS_DEBUG
+AS_DEBUG
 /Intermediate
 /*/App
