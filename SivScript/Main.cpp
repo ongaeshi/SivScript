@@ -5,6 +5,7 @@
 namespace {
     // Windows.hを読み込む前に呼ばないとSetCurrentDirectoryが
     // マクロで上書きされてしまいうまく動かない。
+	// test
     void SetDir(const FilePath& path)
     {
         ::s3d::Windows::FileSystem::SetCurrentDirectory(path);
